@@ -22,7 +22,7 @@
 
 # mips32 have a bug with 64bit atomic counter, so if you need 
 # this platform - plz, use gcc build
-APP_ABI := arm64-v8a
+APP_ABI := arm64-v8a armeabi-v7a x86_64
 APP_PLATFORM := android-24
 NDK_TOOLCHAIN_VERSION := clang
 
@@ -100,6 +100,7 @@ LIBWEBP_ENABLED       := true
 LIBXML2_ENABLED       := true
 LIBZLIB_ENABLED       := true
 LIBLCMS2_ENABLED      := true
+LIBHEIF_ENABLED       := true
 
 #------------------------------------------
 

@@ -3,3 +3,11 @@
 #define BUILD "20190814"
 #define PACKAGE_NAME "libjpeg-turbo"
 #define VERSION "2.0.2"
+#define SIZEOF_SIZE_T 4
+#define BUILD "20190814"
+#define PACKAGE_NAME "libjpeg-turbo"
+#define VERSION "2.0.2"
+#define SIZEOF_SIZE_T 8
+#define BUILD "20190814"
+#define PACKAGE_NAME "libjpeg-turbo"
+#define VERSION "2.0.2"

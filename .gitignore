@@ -1,4 +1,6 @@
 build
 jniLibs
+libaom
+prebuilt-libaom/_cmake_*
 libopencl/qualcomm/lib/64
 libopencl/qualcomm/lib/32

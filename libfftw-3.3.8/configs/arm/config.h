@@ -223,7 +223,8 @@
 /* #undef HAVE_MPI */
 
 /* Define to enable ARM NEON optimizations. */
-#define HAVE_NEON 1
+/* Disabled for Android armeabi-v7a + double-precision ImageMagick (FFTW NEON is float-only). */
+/* #undef HAVE_NEON */
 
 /* Define if OpenMP is enabled */
 #define HAVE_OPENMP 1

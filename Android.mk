@@ -52,6 +52,9 @@ LZMA_LIB_PATH                   := $(LOCAL_PATH)/xz-5.2.4
 BZLIB_LIB_PATH                  := $(LOCAL_PATH)/bzip-1.0.8
 LCMS_LIB_PATH                   := $(LOCAL_PATH)/liblcms2-2.9
 
+DE265_LIB_PATH                  := $(LOCAL_PATH)/libde265-1.0.15
+HEIF_LIB_PATH                   := $(LOCAL_PATH)/libheif-1.19.7
+
 #-------------------------------------------------------------
 # Include all modules
 #-------------------------------------------------------------
@@ -100,6 +103,11 @@ include $(MAKE_PATH)/libicu4c.mk
 
 # liblcms2
 include $(MAKE_PATH)/liblcms2.mk
+
+# libde265 + libaom + libheif (HEIC/HEIF + AVIF via libheif / ImageMagick heic.c)
+include $(MAKE_PATH)/libde265.mk
+include $(MAKE_PATH)/libaom.mk
+include $(MAKE_PATH)/libheif.mk
 
 #-------------------------------------------------------------
 # Magick

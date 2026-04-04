@@ -371,6 +371,14 @@ ifeq ($(LIBLCMS2_ENABLED),true)
     LOCAL_STATIC_LIBRARIES += liblcms2
 endif
 
+ifeq ($(LIBHEIF_ENABLED),true)
+    LOCAL_CFLAGS += -DMAGICKCORE_HEIC_DELEGATE=1
+    LOCAL_C_INCLUDES += \
+        $(LOCAL_PATH)/make/include \
+        $(LOCAL_PATH)/libheif-1.19.7/libheif/api
+    LOCAL_STATIC_LIBRARIES += libheif libde265 libaom
+endif
+
 
 ifeq ($(STATIC_BUILD),true)
     include $(BUILD_STATIC_LIBRARY)

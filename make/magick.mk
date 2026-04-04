@@ -18,7 +18,8 @@ LOCAL_C_INCLUDES  :=  \
     $(FREETYPE_LIB_PATH)/include
 
 
-LOCAL_LDLIBS    := -L$(SYSROOT)/usr/lib -llog -lz
+# Do not use -L$(SYSROOT)/usr/lib when SYSROOT is unset (becomes -L/usr/lib and breaks AArch64 link on Linux hosts).
+LOCAL_LDLIBS    := -llog -lz
 LOCAL_SRC_FILES := \
     $(IMAGE_MAGICK)/utilities/magick.c \
 
@@ -26,6 +27,9 @@ ifeq ($(STATIC_BUILD),true)
     LOCAL_STATIC_LIBRARIES := \
         libmagickcore-7 \
         libmagickwand-7
+    ifeq ($(LIBHEIF_ENABLED),true)
+        LOCAL_STATIC_LIBRARIES += libheif libde265 libaom
+    endif
 else
     LOCAL_SHARED_LIBRARIES := \
         libmagickcore-7 \
