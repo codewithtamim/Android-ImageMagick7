@@ -1,5 +1,5 @@
 
-# Android ImageMagick 7.1.2-18
+# Android ImageMagick 7.1.2-19
 
 Fork maintained at **[codewithtamim/Android-ImageMagick7](https://github.com/codewithtamim/Android-ImageMagick7)**.  
 Upstream base: **[MolotovCherry/Android-ImageMagick7](https://github.com/MolotovCherry/Android-ImageMagick7)** (wiki, history, and general Android ImageMagick guidance still apply there).
