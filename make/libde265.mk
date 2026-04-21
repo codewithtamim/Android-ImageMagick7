@@ -16,9 +16,10 @@ LOCAL_CPPFLAGS := -std=c++11 -frtti -fexceptions \
 
 LOCAL_C_INCLUDES := \
     $(DE265_TOP) \
-    $(DE265_ROOT)
+    $(DE265_ROOT) \
+    $(DE265_TOP)/extra
 
-LOCAL_EXPORT_C_INCLUDES := $(DE265_TOP)
+LOCAL_EXPORT_C_INCLUDES := $(DE265_TOP) $(DE265_TOP)/extra
 
 LOCAL_SRC_FILES := \
     libde265-1.0.15/libde265/alloc_pool.cc \
