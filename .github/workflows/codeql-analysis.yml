@@ -57,6 +57,14 @@ jobs:
         uses: nttld/setup-ndk@v1
         with:
           ndk-version: r27c
+
+      - name: Install Ninja (libaom)
+        run: choco install ninja -y
+
+      - name: Build libaom prebuilts (Application.mk ABIs)
+        shell: bash
+        run: scripts/build-libaom-android.sh arm64-v8a armeabi-v7a x86_64
+
       - name: Build
         run: .\build-release.bat
 

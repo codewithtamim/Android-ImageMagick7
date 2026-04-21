@@ -28,6 +28,7 @@ aom_cpu_flags() {
   case "${1:?}" in
     armeabi-v7a) echo -DAOM_TARGET_CPU=generic -DENABLE_NEON=1 ;;
     arm64-v8a)   echo -DAOM_TARGET_CPU=generic -DENABLE_NEON=1 ;;
+    x86)         echo -DAOM_TARGET_CPU=generic ;;
     x86_64)      echo -DAOM_TARGET_CPU=generic ;;
     *) echo "unknown ABI: $1" >&2; exit 1 ;;
   esac
@@ -52,7 +53,9 @@ build_one() {
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX="$B/prefix"
 
-  cmake --build "$B" -j"$(nproc 2>/dev/null || echo 4)"
+  local jobs
+  jobs="$(nproc 2>/dev/null || echo "${NUMBER_OF_PROCESSORS:-4}")"
+  cmake --build "$B" -j"$jobs"
   cmake --install "$B"
 
   mkdir -p "$OUT/$abi"
@@ -64,7 +67,13 @@ build_one() {
   echo "  -> $OUT/$abi/libaom.a"
 }
 
-for abi in arm64-v8a armeabi-v7a x86_64; do
+if [[ $# -gt 0 ]]; then
+  abis=("$@")
+else
+  abis=(arm64-v8a armeabi-v7a x86 x86_64)
+fi
+
+for abi in "${abis[@]}"; do
   echo "Building libaom for $abi ..."
   build_one "$abi"
 done

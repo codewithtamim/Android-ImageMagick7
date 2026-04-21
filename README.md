@@ -14,7 +14,7 @@ MagickWand is enabled for the `magick` CLI-style binary; Magick++ can be toggled
 
 - **HEIC / HEIF** via **libheif** (vendored) and **libde265** for HEVC decode, wired into ImageMagick as `MAGICKCORE_HEIC_DELEGATE` (`make/libheif.mk`, `make/libde265.mk`, `Android.mk`).
 - **AVIF** (read/write) through the same **HEIC coder** in ImageMagick: libheif’s AV1 path using **libaom**, supplied as **prebuilt static libraries** per ABI under `prebuilt-libaom/` (see below).
-- **`scripts/build-libaom-android.sh`**: rebuilds `prebuilt-libaom/<abi>/libaom.a` + headers using **CMake**, **Ninja**, and **ANDROID_NDK_HOME** (optional if you keep the committed prebuilts).
+- **`scripts/build-libaom-android.sh`**: rebuilds `prebuilt-libaom/<abi>/libaom.a` + headers using **CMake**, **Ninja**, and **ANDROID_NDK_HOME**. The repo may only ship headers; GitHub Actions runs this script per ABI before `ndk-build`. Locally, run it (or pass ABI names, e.g. `./scripts/build-libaom-android.sh x86_64`) if `libaom.a` is missing.
 - **`make/libaom.mk`**: imports those prebuilts for `ndk-build`.
 - **Linux / NDK `ndk-build` fixes** so the tree builds on bash hosts without Windows-only assumptions, including:
   - **`make/libjpeg-turbo.mk`**: avoid shell glob/`#` issues when generating `jconfig.h` / `jconfigint.h`.

@@ -52,6 +52,13 @@ jobs:
           # Write the modified content back to the file
           $content | Set-Content $file
 
+      - name: Install Ninja (libaom)
+        run: choco install ninja -y
+
+      - name: Build libaom prebuilt for ABI
+        shell: bash
+        run: scripts/build-libaom-android.sh "${{ matrix.abi }}"
+
       # This must be run as cmd /c to redirect output properly
       # because powershell considers stderr an error and doesn't
       # log it into the output properly
@@ -148,6 +155,6 @@ jobs:
           script: |
             const fs = require('fs');
             if (fs.existsSync('errors-shared-${{ matrix.abi }}.txt')) {
-                console.log(fs.readFileSync('errors-${{ matrix.abi }}.txt', 'utf8').toString());
+                console.log(fs.readFileSync('errors-shared-${{ matrix.abi }}.txt', 'utf8').toString());
             }
             core.setFailed('Build failed'); 
