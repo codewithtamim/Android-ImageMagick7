@@ -35,6 +35,10 @@ NDK_TOOLCHAIN_VERSION := clang
 # A future NDK release will remove the other options.
 APP_STL := c++_shared
 
+# 16 KB ELF segment alignment (Android 15+ devices with 16 KB pages). Without this,
+# armeabi-v7a links often default to 4 KB and fail Play / device compatibility checks.
+APP_LDFLAGS += -Wl,-z,max-page-size=16384
+
 APP_CFLAGS   += -O3 \
     -Wno-error=unused-but-set-variable \
     -Wno-error=implicit-const-int-float-conversion \

@@ -2,5 +2,7 @@ build
 jniLibs
 libaom
 prebuilt-libaom/_cmake_*
+# Built by scripts/build-libaom-android.sh — do not commit binaries.
+prebuilt-libaom/**/*.a
 libopencl/qualcomm/lib/64
 libopencl/qualcomm/lib/32
