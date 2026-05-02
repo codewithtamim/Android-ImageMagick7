@@ -32,6 +32,15 @@ jobs:
         with:
           ndk-version: r27c
 
+      - name: Verify Android NDK (ndk-build + OpenMP relink)
+        shell: bash
+        run: |
+          if [ -z "${ANDROID_NDK_HOME:-}" ] || [ ! -d "$ANDROID_NDK_HOME/toolchains/llvm/prebuilt" ]; then
+            echo "ANDROID_NDK_HOME missing or invalid after setup-ndk" >&2
+            exit 1
+          fi
+          echo "NDK root: $ANDROID_NDK_HOME"
+
       - name: Set ABI environment variable
         run: |
           echo "ABI=${{ matrix.abi }}" >> $env:GITHUB_ENV
@@ -66,20 +75,21 @@ jobs:
         id: build-static
         continue-on-error: true
         run: |
-          # Build the static library using build-release
-          cmd /c "build-release 2> errors-static-${{ matrix.abi }}.txt"
-          # Move static library files to the appropriate directory
+          cmd /c "build-release.bat 2> errors-static-${{ matrix.abi }}.txt"
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          bash scripts/relink-libomp-16k.sh jniLibs
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           mv jniLibs static_libs
 
       - name: Build Shared Library
         id: build-shared
         continue-on-error: true
         run: |
-          # Change to shared library mode before building
           ./.github-deps/change-to-shared-lib.ps1
-          # Build the shared library using build-release
-          cmd /c "build-release 2> errors-shared-${{ matrix.abi }}.txt"
-          # Move static library files to the appropriate directory
+          cmd /c "build-release.bat 2> errors-shared-${{ matrix.abi }}.txt"
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          bash scripts/relink-libomp-16k.sh jniLibs
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           mv jniLibs shared_libs
 
       - name: Set error-log to var (Static Build)

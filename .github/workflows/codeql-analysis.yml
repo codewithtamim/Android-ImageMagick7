@@ -58,6 +58,14 @@ jobs:
         with:
           ndk-version: r27c
 
+      - name: Verify Android NDK
+        shell: bash
+        run: |
+          if [ -z "${ANDROID_NDK_HOME:-}" ] || [ ! -d "$ANDROID_NDK_HOME/toolchains/llvm/prebuilt" ]; then
+            echo "ANDROID_NDK_HOME missing or invalid after setup-ndk" >&2
+            exit 1
+          fi
+
       - name: Install Ninja (libaom)
         run: choco install ninja -y
 
@@ -67,6 +75,10 @@ jobs:
 
       - name: Build
         run: .\build-release.bat
+
+      - name: Relink libomp (16 KB page size for 32-bit ABIs)
+        shell: bash
+        run: scripts/relink-libomp-16k.sh jniLibs
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v4

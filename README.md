@@ -59,6 +59,14 @@ MagickWand is enabled for the `magick` CLI-style binary; Magick++ can be toggled
    ndk-build NDK_PROJECT_PATH=. NDK_APPLICATION_MK=Application.mk APP_BUILD_SCRIPT=Android.mk NDK_OUT=./build/ NDK_LIBS_OUT=./jniLibs
    ```
 
+   With **OpenMP** enabled (default), the NDK’s **`libomp.so` for 32-bit ABIs** (`armeabi-v7a`, `x86`) ships with **4 KB** ELF alignment. Rebuild it from the NDK’s `libomp.a` for **16 KB** compatibility:
+
+   ```bash
+   ./scripts/relink-libomp-16k.sh
+   ```
+
+   (`build-release.bat` / `build-debug.bat` run `scripts\relink-libomp-16k.bat` after `ndk-build` on Windows when `ANDROID_NDK_HOME` is set. **arm64-v8a** / **x86_64** NDK `libomp.so` is already 16 KB–aligned; the script only touches ABIs where `jniLibs/<abi>/libomp.so` exists.)
+
 Artifacts appear under `jniLibs/<abi>/` (e.g. `magick`, `libc++_shared.so`, `libomp.so` depending on config).
 
 If `prebuilt-libaom/<abi>/libaom.a` is missing, `ndk-build` stops with an error pointing at the script above.

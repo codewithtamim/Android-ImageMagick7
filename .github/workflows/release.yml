@@ -39,6 +39,15 @@ jobs:
         with:
           ndk-version: r29
 
+      - name: Verify Android NDK (ndk-build + OpenMP relink)
+        shell: bash
+        run: |
+          if [ -z "${ANDROID_NDK_HOME:-}" ] || [ ! -d "$ANDROID_NDK_HOME/toolchains/llvm/prebuilt" ]; then
+            echo "ANDROID_NDK_HOME missing or invalid after setup-ndk" >&2
+            exit 1
+          fi
+          echo "NDK root: $ANDROID_NDK_HOME"
+
       - name: Set ABI environment variable
         run: |
           echo "ABI=${{ matrix.abi }}" >> $env:GITHUB_ENV
@@ -70,12 +79,16 @@ jobs:
         run: |
           cmd /c "build-release.bat 2> errors-static-${{ matrix.abi }}.txt"
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          bash scripts/relink-libomp-16k.sh jniLibs
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           if (Test-Path jniLibs) { Move-Item -Path jniLibs -Destination static_libs -Force }
 
       - name: Build and Archive Shared Library
         run: |
           ./.github-deps/change-to-shared-lib.ps1
           cmd /c "build-release.bat 2> errors-shared-${{ matrix.abi }}.txt"
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          bash scripts/relink-libomp-16k.sh jniLibs
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           if (Test-Path jniLibs) { Move-Item -Path jniLibs -Destination shared_libs -Force }
 
