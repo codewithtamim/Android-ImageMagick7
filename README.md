@@ -21,7 +21,7 @@ MagickWand is enabled for the `magick` CLI-style binary; Magick++ can be toggled
   - **`make/libicu4c.mk`**: same for generated ICU headers.
   - **`make/magick.mk`**: avoid `-L/usr/lib` when `SYSROOT` is empty; link OpenMP/`magick` correctly on AArch64.
   - **`make/libfftw.mk`**: no PowerShell on ARM; **`libfftw-3.3.8/configs/arm/config.h`**: disable NEON for double-precision FFTW on **armeabi-v7a** so symbols match ImageMagick’s `fftw_*` usage.
-- **`Application.mk`**: `LIBHEIF_ENABLED`, `APP_ABI` aligned with **arm64-v8a**, **armeabi-v7a**, **x86_64** (no 32-bit x86 in default set).
+- **`Application.mk`**: `LIBFFTW_ENABLED := false` (FFTW is GPL-2.0-or-later; leaving it out keeps the build free of GPL code, at the cost of `-fft` / `-ift`), `LIBHEIF_ENABLED`, `APP_ABI` aligned with **arm64-v8a**, **armeabi-v7a**, **x86_64** (no 32-bit x86 in default set).
 
 ## Features (typical build)
 
@@ -31,9 +31,9 @@ MagickWand is enabled for the `magick` CLI-style binary; Magick++ can be toggled
 
 ## Delegates and codecs
 
-**ImageMagick delegates (representative):** bzlib, fftw, freetype, **heic** (HEIF/HEIC + AVIF through libheif), jpeg, lcms, lzma, png, tiff, webp, xml, zlib — plus jng as in upstream configs.
+**ImageMagick delegates (representative):** bzlib, freetype, **heic** (HEIF/HEIC + AVIF through libheif), jpeg, lcms, lzma, png, tiff, webp, xml, zlib — plus jng as in upstream configs.
 
-**Bundled / linked for HEIC+AVIF:** libde265, libheif (static), libaom (static per ABI, from `build-libaom-android.sh`, not stored in Git).
+**Bundled / linked for HEIC+AVIF:** libde265, libheif 1.23.6 (static), libaom (static per ABI, from `build-libaom-android.sh`, not stored in Git).
 
 **Support libraries (as upstream):** libicu4c, libiconv, libltdl (e.g. for OpenCL), etc.
 

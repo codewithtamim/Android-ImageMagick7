@@ -53,7 +53,7 @@ BZLIB_LIB_PATH                  := $(LOCAL_PATH)/bzip-1.0.8
 LCMS_LIB_PATH                   := $(LOCAL_PATH)/liblcms2-2.9
 
 DE265_LIB_PATH                  := $(LOCAL_PATH)/libde265-1.0.15
-HEIF_LIB_PATH                   := $(LOCAL_PATH)/libheif-1.19.7
+HEIF_LIB_PATH                   := $(LOCAL_PATH)/libheif-1.23.6
 
 #-------------------------------------------------------------
 # Include all modules

@@ -93,7 +93,7 @@ OPENMP_BUILD     := true
 #
 
 LIBBZ2_ENABLED        := true
-LIBFFTW_ENABLED       := true
+LIBFFTW_ENABLED       := false
 LIBFREETYPE2_ENABLED  := true
 LIBJPEG_TURBO_ENABLED := true
 LIBLZMA_ENABLED       := true
