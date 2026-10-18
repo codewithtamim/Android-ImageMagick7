@@ -55,12 +55,14 @@ endif
 LOCAL_SRC_FILES += \
     $(IMAGE_MAGICK)/coders/aai.c \
     $(IMAGE_MAGICK)/coders/art.c \
+    $(IMAGE_MAGICK)/coders/ase.c \
     $(IMAGE_MAGICK)/coders/ashlar.c \
     $(IMAGE_MAGICK)/coders/avs.c \
     $(IMAGE_MAGICK)/coders/bayer.c \
     $(IMAGE_MAGICK)/coders/bgr.c \
     $(IMAGE_MAGICK)/coders/bmp.c \
     $(IMAGE_MAGICK)/coders/braille.c \
+    $(IMAGE_MAGICK)/coders/c2pa.c \
     $(IMAGE_MAGICK)/coders/cals.c \
     $(IMAGE_MAGICK)/coders/caption.c \
     $(IMAGE_MAGICK)/coders/cin.c \
@@ -182,6 +184,7 @@ LOCAL_SRC_FILES += \
     $(IMAGE_MAGICK)/coders/video.c \
     $(IMAGE_MAGICK)/coders/viff.c \
     $(IMAGE_MAGICK)/coders/vips.c \
+    $(IMAGE_MAGICK)/coders/wbinfo.c \
     $(IMAGE_MAGICK)/coders/wbmp.c \
     $(IMAGE_MAGICK)/coders/webp.c \
     $(IMAGE_MAGICK)/coders/wmf.c \
