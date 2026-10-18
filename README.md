@@ -31,7 +31,7 @@ MagickWand is enabled for the `magick` CLI-style binary; Magick++ can be toggled
 
 ## Delegates and codecs
 
-**ImageMagick delegates (representative):** bzlib, freetype, **heic** (HEIF/HEIC + AVIF through libheif), jpeg, lcms, lzma, png, tiff, webp, xml, zlib — plus jng as in upstream configs.
+**ImageMagick delegates (representative):** bzlib, freetype, **heic** (HEIF/HEIC + AVIF through libheif), jpeg, lcms, lzma, png, tiff, webp (libwebp 1.6.0), xml, zlib — plus jng as in upstream configs.
 
 **Bundled / linked for HEIC+AVIF:** libde265, libheif 1.23.6 (static), libaom (static per ABI, from `build-libaom-android.sh`, not stored in Git).
 

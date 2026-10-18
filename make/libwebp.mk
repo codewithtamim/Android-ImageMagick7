@@ -29,6 +29,15 @@ else
   NEON := c
 endif
 
+sharpyuv_srcs := \
+    $(WEBP_LIB_PATH)/sharpyuv/sharpyuv.c \
+    $(WEBP_LIB_PATH)/sharpyuv/sharpyuv_cpu.c \
+    $(WEBP_LIB_PATH)/sharpyuv/sharpyuv_csp.c \
+    $(WEBP_LIB_PATH)/sharpyuv/sharpyuv_dsp.c \
+    $(WEBP_LIB_PATH)/sharpyuv/sharpyuv_gamma.c \
+    $(WEBP_LIB_PATH)/sharpyuv/sharpyuv_neon.$(NEON) \
+    $(WEBP_LIB_PATH)/sharpyuv/sharpyuv_sse2.c \
+
 dec_srcs := \
     $(WEBP_LIB_PATH)/src/dec/alpha_dec.c \
     $(WEBP_LIB_PATH)/src/dec/buffer_dec.c \
@@ -70,6 +79,7 @@ dsp_dec_srcs := \
     $(WEBP_LIB_PATH)/src/dsp/lossless_msa.c \
     $(WEBP_LIB_PATH)/src/dsp/lossless_neon.$(NEON) \
     $(WEBP_LIB_PATH)/src/dsp/lossless_sse2.c \
+    $(WEBP_LIB_PATH)/src/dsp/lossless_sse41.c \
     $(WEBP_LIB_PATH)/src/dsp/rescaler.c \
     $(WEBP_LIB_PATH)/src/dsp/rescaler_mips32.c \
     $(WEBP_LIB_PATH)/src/dsp/rescaler_mips_dsp_r2.c \
@@ -148,6 +158,7 @@ utils_dec_srcs := \
     $(WEBP_LIB_PATH)/src/utils/color_cache_utils.c \
     $(WEBP_LIB_PATH)/src/utils/filters_utils.c \
     $(WEBP_LIB_PATH)/src/utils/huffman_utils.c \
+    $(WEBP_LIB_PATH)/src/utils/palette.c \
     $(WEBP_LIB_PATH)/src/utils/quant_levels_dec_utils.c \
     $(WEBP_LIB_PATH)/src/utils/random_utils.c \
     $(WEBP_LIB_PATH)/src/utils/rescaler_utils.c \
@@ -196,6 +207,7 @@ include $(CLEAR_VARS)
 LOCAL_MODULE    := libwebp
 
 LOCAL_SRC_FILES := \
+    $(sharpyuv_srcs) \
     $(dsp_enc_srcs) \
     $(enc_srcs) \
     $(utils_enc_srcs) \
